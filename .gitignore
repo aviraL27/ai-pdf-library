@@ -1,0 +1,8 @@
+# Ignore design markdown files
+DESIGN.md
+design.md
+*DESIGN.md
+*design.md
+
+# Ignore all PNG files
+*.png
