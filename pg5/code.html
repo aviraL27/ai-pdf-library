@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian PDF - Minimal Reading Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Custom scrollbar for minimalist feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a; 
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b; 
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#1a0000",
+                        "error": "#ef4444",
+                        "surface-dim": "#0c0c0f",
+                        "on-error-container": "#fca5a5",
+                        "primary-container": "#7c3aed",
+                        "surface-container-lowest": "#09090b",
+                        "surface-container-low": "#0f0f12",
+                        "secondary": "#71717a",
+                        "on-tertiary-fixed-variant": "#047857",
+                        "primary-fixed": "#ede9fe",
+                        "background": "#09090b",
+                        "surface-tint": "#a78bfa",
+                        "primary-fixed-dim": "#c4b5fd",
+                        "tertiary": "#34d399",
+                        "surface-container": "#121215",
+                        "on-primary-container": "#ede9fe",
+                        "on-tertiary": "#001a12",
+                        "on-surface-variant": "#a1a1aa",
+                        "on-primary-fixed": "#2e1065",
+                        "primary": "#a78bfa",
+                        "surface": "#0c0c0f",
+                        "on-primary": "#0a0012",
+                        "tertiary-fixed-dim": "#6ee7b7",
+                        "outline-variant": "#27272a",
+                        "tertiary-container": "#065f46",
+                        "tertiary-fixed": "#bbf7d0",
+                        "on-tertiary-container": "#bbf7d0",
+                        "on-primary-fixed-variant": "#5b21b6",
+                        "surface-bright": "#18181b",
+                        "on-tertiary-fixed": "#003318",
+                        "outline": "#52525b",
+                        "on-secondary": "#09090b",
+                        "surface-container-highest": "#1e1e22",
+                        "inverse-primary": "#5b21b6",
+                        "on-secondary-container": "#a1a1aa",
+                        "on-secondary-fixed": "#18181b",
+                        "secondary-fixed": "#a1a1aa",
+                        "on-secondary-fixed-variant": "#3f3f46",
+                        "inverse-surface": "#fafafa",
+                        "on-surface": "#fafafa",
+                        "secondary-container": "#27272a",
+                        "error-container": "#3b1111",
+                        "on-background": "#fafafa",
+                        "surface-variant": "#18181b",
+                        "surface-container-high": "#18181b",
+                        "secondary-fixed-dim": "#71717a",
+                        "inverse-on-surface": "#09090b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Geist", "sans-serif"],
+                        "display": ["Geist", "sans-serif"],
+                        "body": ["Geist", "sans-serif"],
+                        "label": ["Geist", "sans-serif"],
+                        "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body h-screen flex flex-col overflow-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Rendered directly from JSON specification) -->
+<header class="bg-background dark:bg-background text-primary dark:text-primary font-body tracking-tight text-on-surface sticky w-full top-0 border-b border-outline-variant flex justify-between items-center px-6 py-3 h-16 z-30">
+<div class="flex items-center gap-8">
+<div class="text-xl font-headline font-bold tracking-tighter text-on-surface dark:text-on-surface">
+                Obsidian PDF
+            </div>
+<nav class="hidden md:flex items-center gap-6">
+<!-- Active State: Documents (Assuming reading mode belongs to Documents context) -->
+<a class="text-primary border-b-2 border-primary pb-1 font-medium hover:text-primary transition-colors scale-95 transition-transform duration-150" href="#">
+                    Documents
+                </a>
+<a class="text-on-surface-variant hover:text-primary transition-colors scale-95 transition-transform duration-150" href="#">
+                    Library
+                </a>
+<a class="text-on-surface-variant hover:text-primary transition-colors scale-95 transition-transform duration-150" href="#">
+                    Settings
+                </a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-medium text-sm hover:bg-surface-tint transition-colors">
+                Upload PDF
+            </button>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button aria-label="Account" class="p-2 hover:text-primary transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+<button aria-label="Help" class="p-2 hover:text-primary transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Workspace -->
+<div class="flex-1 relative flex overflow-hidden">
+<!-- Minimalist Canvas (Narrow column reader) -->
+<main class="flex-1 overflow-y-auto w-full transition-all duration-500 ease-in-out relative" id="reader-canvas">
+<!-- Document Meta overlay (subtle, top right of canvas) -->
+<div class="absolute top-4 right-8 text-secondary font-mono text-xs opacity-50 select-none">
+                PAGE 1 OF 42 • ZINC-PROTOCOL-V2.PDF
+            </div>
+<article class="max-w-2xl mx-auto py-24 px-6 lg:px-0">
+<!-- Document Header -->
+<header class="mb-16">
+<h1 class="font-headline text-4xl lg:text-5xl font-bold tracking-tighter text-on-surface leading-tight mb-4">
+                        Cryptographic Verification in Zero-Trust Edge Networks
+                    </h1>
+<div class="flex items-center gap-4 text-sm text-on-surface-variant font-mono">
+<span>DR. ELARA VANCE</span>
+<span class="text-outline">•</span>
+<span>OCTOBER 24, 2024</span>
+</div>
+</header>
+<!-- Document Content -->
+<div class="space-y-8 text-lg leading-relaxed text-on-surface-variant font-body">
+<p class="text-on-surface font-medium">
+                        Abstract — This paper introduces a novel approach to decentralized cryptographic verification, specifically engineered for high-latency edge nodes operating within strict zero-trust parameters. By decoupling the consensus layer from the validation stream, we achieve a 40% reduction in handshake overhead.
+                    </p>
+<h2 class="font-headline text-2xl font-semibold text-on-surface mt-12 mb-6 tracking-tight">
+                        1. The Latency Dilemma
+                    </h2>
+<p>
+                        In standard zero-trust architectures, every inter-node communication requires complete re-authentication. While highly secure, this introduces catastrophic latency in edge networks where nodes are geographically dispersed and prone to intermittent connectivity drops. The prevailing models rely on centralized Certificate Authorities (CAs) which act as bottlenecks.
+                    </p>
+<div class="my-12 relative rounded-xl overflow-hidden border border-outline-variant bg-surface-container-lowest">
+<img class="w-full h-auto object-cover opacity-80 mix-blend-screen" data-alt="A highly technical, minimalist system architecture diagram illustrating network nodes communicating. The diagram uses a strict dark mode palette of deep blacks, zinc grays, and precise neon violet lines indicating data flow. The style is exact, geometric, and developer-focused, devoid of unnecessary ornamentation, resembling a high-end technical whitepaper illustration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0snklieNiLOvrgl-JWgOF5kgceBRVxcFO4iAxmqmg6Ul1ypuAj2pkqnwQaKO54JZ73PNXdSDeE077HD9EttzXFbQpFemJA4rmBFVjwQncVHm2qlFy80QxAk5jIN6TDUvvg238RAjXsqYt_W_RWgMR6CUesrOR9VIDHT4V8Qdn1T7uQOi9EGQDp0VhwZ_qdi7fdTzNYOLnIoVlaa3_dU8j0ucoucJT67iAYkNaxRUAm1Gq7AeGUUFMNvglzzwKkZYgayERS3iaJftS"/>
+<div class="p-4 border-t border-outline-variant bg-surface-container text-xs font-mono text-secondary">
+                            FIG 1. Conventional authentication flow vs. Decoupled validation stream.
+                        </div>
+</div>
+<p>
+                        Our proposed architecture, codenamed <em>Obsidian Protocol</em>, utilizes a localized mesh of ephemeral keys. Instead of reaching back to the core CA, nodes authenticate against a constantly rotating hash ring maintained by their immediate physical neighbors.
+                    </p>
+<h2 class="font-headline text-2xl font-semibold text-on-surface mt-12 mb-6 tracking-tight">
+                        2. Implementation Details
+                    </h2>
+<p>
+                        The core validation routine is written in a memory-safe subset of Rust, compiled to WebAssembly for execution across heterogeneous edge hardware. Below is the primary validation loop responsible for checking the localized hash ring.
+                    </p>
+<!-- Code Block -->
+<div class="my-8 rounded-lg bg-surface-container-lowest border border-outline-variant overflow-hidden">
+<div class="flex items-center px-4 py-2 bg-surface-container border-b border-outline-variant text-xs font-mono text-secondary uppercase tracking-widest">
+                            src/validation/ring.rs
+                        </div>
+<pre class="p-6 overflow-x-auto text-sm font-mono leading-loose"><code class="text-on-surface-variant"><span class="text-primary">pub fn</span> <span class="text-tertiary">verify_ephemeral_key</span>(key: &amp;[<span class="text-primary">u8</span>], ring: &amp;HashRing) -&gt; <span class="text-primary">Result</span>&lt;(), ValidationError&gt; {
+    <span class="text-secondary">// Hash the incoming key against the current epoch</span>
+    <span class="text-primary">let</span> epoch_hash = crypto::blake3(key, ring.current_epoch());
+    
+    <span class="text-primary">if</span> ring.contains(&amp;epoch_hash) {
+        <span class="text-primary">return</span> <span class="text-tertiary">Ok</span>(());
+    }
+    
+    <span class="text-tertiary">Err</span>(ValidationError::KeyNotInRing)
+}</code></pre>
+</div>
+<p>
+                        By enforcing strict epoch limits, we ensure that compromised nodes are isolated mathematically within milliseconds, preventing lateral movement across the mesh.
+                    </p>
+</div>
+</article>
+</main>
+<!-- Floating 'Ask AI' Bubble -->
+<button aria-label="Ask AI" class="fixed bottom-8 right-8 z-50 bg-primary text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(167,139,250,0.15)] border border-primary-fixed hover:bg-surface-tint hover:scale-105 transition-all duration-300 group" id="ai-toggle-btn">
+<span class="material-symbols-outlined transition-transform duration-300 group-hover:rotate-12" data-icon="smart_toy">smart_toy</span>
+<div class="absolute right-full mr-4 bg-surface-container-highest text-on-surface text-sm font-medium px-3 py-1.5 rounded border border-outline-variant opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                Ask AI
+            </div>
+</button>
+<!-- Expanding Side-Drawer (AI Chat) -->
+<aside class="absolute top-0 right-0 bottom-0 w-[400px] max-w-[90vw] bg-surface border-l border-outline-variant flex flex-col z-40 transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-2xl" id="ai-drawer">
+<!-- Drawer Header -->
+<div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant bg-surface-container-low">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="temp_preferences_custom">temp_preferences_custom</span>
+<h3 class="font-headline font-semibold text-on-surface tracking-tight">Document Copilot</h3>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1 rounded transition-colors" id="ai-close-btn">
+<span class="material-symbols-outlined text-xl" data-icon="close">close</span>
+</button>
+</div>
+<!-- Chat History Area -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6 bg-surface">
+<!-- AI Greeting -->
+<div class="flex gap-4 items-start">
+<div class="w-8 h-8 rounded bg-surface-container-highest border border-outline-variant flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="smart_toy">smart_toy</span>
+</div>
+<div class="space-y-2">
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                            I'm ready to help you analyze "Cryptographic Verification in Zero-Trust Edge Networks". You can ask for a summary, clarification on specific algorithms, or to extract key data points.
+                        </p>
+<div class="flex flex-wrap gap-2 pt-2">
+<button class="text-xs bg-surface-container border border-outline-variant text-on-surface-variant px-3 py-1.5 rounded-full hover:bg-surface-container-high hover:text-on-surface transition-colors">Summarize Abstract</button>
+<button class="text-xs bg-surface-container border border-outline-variant text-on-surface-variant px-3 py-1.5 rounded-full hover:bg-surface-container-high hover:text-on-surface transition-colors">Explain Blake3 Hash</button>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-4 items-start flex-row-reverse">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center flex-shrink-0 font-bold text-xs">
+                        U
+                    </div>
+<div class="bg-surface-container border border-outline-variant rounded-2xl rounded-tr-sm px-4 py-3 max-w-[85%]">
+<p class="text-sm text-on-surface">Why use ephemeral keys instead of standard CAs?</p>
+</div>
+</div>
+<!-- AI Response -->
+<div class="flex gap-4 items-start">
+<div class="w-8 h-8 rounded bg-surface-container-highest border border-outline-variant flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="smart_toy">smart_toy</span>
+</div>
+<div class="space-y-3">
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                            Based on Section 1, the document argues that standard CAs introduce "catastrophic latency" in geographically dispersed edge networks due to the need for complete re-authentication. 
+                        </p>
+<div class="bg-surface-container-lowest border-l-2 border-primary pl-3 py-1">
+<p class="text-xs text-secondary font-serif italic">"...ephemeral keys... instead of reaching back to the core CA, nodes authenticate against a constantly rotating hash ring..."</p>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                            Ephemeral keys localize the process, removing the bottleneck of a centralized authority.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-4 border-t border-outline-variant bg-surface-container-lowest">
+<div class="relative flex items-end bg-surface-container border border-outline-variant rounded-xl focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all duration-200">
+<textarea class="w-full bg-transparent border-none text-sm text-on-surface placeholder-secondary focus:ring-0 resize-none py-3 px-4 max-h-32 min-h-[44px]" placeholder="Ask about this document..." rows="1"></textarea>
+<div class="p-2 flex-shrink-0">
+<button class="bg-primary text-on-primary p-1.5 rounded-lg hover:bg-surface-tint transition-colors flex items-center justify-center h-8 w-8 disabled:opacity-50">
+<span class="material-symbols-outlined text-lg" data-icon="arrow_upward">arrow_upward</span>
+</button>
+</div>
+</div>
+<div class="text-center mt-3">
+<span class="text-[10px] text-secondary font-mono tracking-widest uppercase">Obsidian AI operates strictly on local document context.</span>
+</div>
+</div>
+</aside>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const drawer = document.getElementById('ai-drawer');
+            const toggleBtn = document.getElementById('ai-toggle-btn');
+            const closeBtn = document.getElementById('ai-close-btn');
+            const readerCanvas = document.getElementById('reader-canvas');
+            let isDrawerOpen = false;
+
+            function toggleDrawer() {
+                isDrawerOpen = !isDrawerOpen;
+                
+                if (isDrawerOpen) {
+                    drawer.classList.remove('translate-x-full');
+                    drawer.classList.add('translate-x-0');
+                    toggleBtn.style.transform = 'scale(0)';
+                    toggleBtn.style.opacity = '0';
+                    // Optional: Push content slightly or fade it to emphasize focus
+                    readerCanvas.style.paddingRight = window.innerWidth >= 1024 ? '400px' : '0';
+                } else {
+                    drawer.classList.add('translate-x-full');
+                    drawer.classList.remove('translate-x-0');
+                    toggleBtn.style.transform = 'scale(1)';
+                    toggleBtn.style.opacity = '1';
+                    readerCanvas.style.paddingRight = '0';
+                }
+            }
+
+            toggleBtn.addEventListener('click', toggleDrawer);
+            closeBtn.addEventListener('click', toggleDrawer);
+
+            // Auto-resize textarea
+            const textarea = document.querySelector('textarea');
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        });
+    </script>
+</body></html>

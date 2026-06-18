@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian PDF - Split View</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#1a0000",
+                        "error": "#ef4444",
+                        "surface-dim": "#0c0c0f",
+                        "on-error-container": "#fca5a5",
+                        "primary-container": "#7c3aed",
+                        "surface-container-lowest": "#09090b",
+                        "surface-container-low": "#0f0f12",
+                        "secondary": "#71717a",
+                        "on-tertiary-fixed-variant": "#047857",
+                        "primary-fixed": "#ede9fe",
+                        "background": "#09090b",
+                        "surface-tint": "#a78bfa",
+                        "primary-fixed-dim": "#c4b5fd",
+                        "tertiary": "#34d399",
+                        "surface-container": "#121215",
+                        "on-primary-container": "#ede9fe",
+                        "on-tertiary": "#001a12",
+                        "on-surface-variant": "#a1a1aa",
+                        "on-primary-fixed": "#2e1065",
+                        "primary": "#a78bfa",
+                        "surface": "#0c0c0f",
+                        "on-primary": "#0a0012",
+                        "tertiary-fixed-dim": "#6ee7b7",
+                        "outline-variant": "#27272a",
+                        "tertiary-container": "#065f46",
+                        "tertiary-fixed": "#bbf7d0",
+                        "on-tertiary-container": "#bbf7d0",
+                        "on-primary-fixed-variant": "#5b21b6",
+                        "surface-bright": "#18181b",
+                        "on-tertiary-fixed": "#003318",
+                        "outline": "#52525b",
+                        "on-secondary": "#09090b",
+                        "surface-container-highest": "#1e1e22",
+                        "inverse-primary": "#5b21b6",
+                        "on-secondary-container": "#a1a1aa",
+                        "on-secondary-fixed": "#18181b",
+                        "secondary-fixed": "#a1a1aa",
+                        "on-secondary-fixed-variant": "#3f3f46",
+                        "inverse-surface": "#fafafa",
+                        "on-surface": "#fafafa",
+                        "secondary-container": "#27272a",
+                        "error-container": "#3b1111",
+                        "on-background": "#fafafa",
+                        "surface-variant": "#18181b",
+                        "surface-container-high": "#18181b",
+                        "secondary-fixed-dim": "#71717a",
+                        "inverse-on-surface": "#09090b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Geist", "sans-serif"],
+                        "display": ["Geist", "sans-serif"],
+                        "body": ["Geist", "sans-serif"],
+                        "label": ["Geist", "sans-serif"]
+                    },
+                    "fontSize": {}
+                },
+            },
+        }
+    </script>
+<style>
+        /* Import Geist Font for completeness if available, otherwise fallback to sans-serif */
+        @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&display=swap');
+        
+        /* Custom Scrollbar for precise dark theme look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body overflow-hidden h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<header class="bg-background dark:bg-background w-full top-0 border-b border-outline-variant flex justify-between items-center px-6 py-3 h-16 shrink-0 z-50">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<span class="text-xl font-headline font-bold tracking-tighter text-on-surface dark:text-on-surface">Obsidian PDF</span>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-6 ml-8 font-body tracking-tight text-on-surface text-sm">
+<!-- Active Nav Item -->
+<a class="text-primary border-b-2 border-primary pb-1 font-medium transition-colors" href="#">Documents</a>
+<!-- Inactive Nav Items -->
+<a class="text-on-surface-variant hover:text-primary transition-colors pb-1 border-b-2 border-transparent" href="#">Library</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors pb-1 border-b-2 border-transparent" href="#">Settings</a>
+</nav>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<!-- Primary Action -->
+<button class="bg-primary text-background px-4 py-1.5 rounded-DEFAULT font-medium text-sm hover:opacity-90 active:scale-95 transition-transform duration-150 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">upload</span>
+                Upload PDF
+            </button>
+<!-- Icon Actions -->
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:text-primary active:scale-95 transition-transform duration-150 p-1 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary active:scale-95 transition-transform duration-150 p-1 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Workspace Area -->
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-surface h-full w-64 border-r border-outline-variant flex flex-col shrink-0 text-label-sm font-body relative z-40">
+<!-- Header -->
+<div class="p-4 border-b border-outline-variant">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A stylized, minimalist avatar icon of a glowing purple abstract geometric shape on a deep black background, representing a high-tech user profile in a developer-grade dark UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk4-u-caF1EwxcKLHZr5gQib_YY762rQrVX2UHIsSKW2Lii8MeKVk_M6xKG6mvQnFsxqhALbA2RmYUy3vvz87NCQ3mCVNMH0eNXk8T0IUszXuxnRThU9VQBQmESwKn5HJaJ1mLlsuuV2sh976wL-eYqWwu9GzCv6SbO0hBoAijh4yZ5MgiFdOLVUl7ORSFujZPHjVY_9_pXp_EPhXaSlfjJYL_z98xa8i8jQGqcE9g30S-6bX3G69uu_iU8vxgBMsFbm7RI_t18EMu"/>
+</div>
+<div>
+<h2 class="font-headline text-lg font-bold text-on-surface leading-tight tracking-tight">Project Alpha</h2>
+<p class="text-on-surface-variant text-xs">PDF Chat Session</p>
+</div>
+</div>
+<!-- CTA -->
+<button class="w-full border border-primary text-primary px-4 py-2 rounded-DEFAULT font-medium hover:bg-primary hover:text-background active:opacity-80 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+                    New Chat
+                </button>
+</div>
+<!-- Scrollable Tabs -->
+<div class="flex-1 overflow-y-auto py-2">
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-4 py-2.5 bg-surface-container-highest text-primary font-bold border-r-4 border-primary group" href="#">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">history</span>
+                    Chat History
+                </a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-3 px-4 py-2.5 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-lg group-hover:text-primary transition-colors">description</span>
+                    Annotated
+                </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-lg group-hover:text-primary transition-colors">star</span>
+                    Starred
+                </a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-lg group-hover:text-primary transition-colors">archive</span>
+                    Archive
+                </a>
+</div>
+<!-- Footer Tabs -->
+<div class="p-2 border-t border-outline-variant mt-auto">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined text-lg">contact_support</span>
+                    Support
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined text-lg">logout</span>
+                    Sign Out
+                </a>
+</div>
+</nav>
+<!-- Split View Container (50/50 Layout) -->
+<main class="flex flex-1 overflow-hidden bg-background">
+<!-- Left Panel: PDF Viewer -->
+<section class="w-1/2 border-r border-outline-variant flex flex-col bg-surface-container-lowest relative">
+<!-- Viewer Header/Toolbar -->
+<div class="h-12 border-b border-outline-variant bg-surface flex items-center justify-between px-4 shrink-0">
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-base">draft</span>
+<span class="font-medium truncate max-w-[200px]">architecture_spec_v2.pdf</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container rounded border border-outline-variant p-0.5">
+<button class="p-1 text-on-surface-variant hover:text-on-surface rounded hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">remove</span>
+</button>
+<span class="text-xs font-medium px-2 text-on-surface">100%</span>
+<button class="p-1 text-on-surface-variant hover:text-on-surface rounded hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+<!-- PDF Canvas Area -->
+<div class="flex-1 overflow-auto p-8 flex justify-center bg-surface-container-low">
+<!-- Faux PDF Document -->
+<div class="w-full max-w-2xl bg-background border border-outline-variant rounded shadow-sm flex flex-col min-h-[800px] p-12">
+<h1 class="text-3xl font-headline font-bold text-on-surface mb-6 tracking-tight">System Architecture Overview</h1>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-8">
+                            This document outlines the core infrastructure and data flow for the project. The primary directive is to maintain strict isolation between rendering tiers while ensuring low-latency communication via the message bus.
+                        </p>
+<!-- Embedded "Diagram" image -->
+<div class="w-full h-64 bg-surface-container border border-outline-variant rounded mb-8 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover opacity-80" data-alt="A highly detailed, technical system architecture diagram presented in a sleek dark mode aesthetic. The diagram features interconnected nodes, glowing violet data pathways, and sharp emerald green status indicators set against a deep, near-black #09090b background. The style is precise, developer-grade, and minimalist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdFiCA7Rhogrw41PEG_k_UqIvq9yCyP5HLUPZKFBeHbji2rDVdc88V3Hxw_F3-_yPa9ar5bL_TdTVarLJtD3EOYvyl15odutd4IyxRqb0evv4qZC_YTjItyDxHG7avIThoHn5a8_PUIWZSko_wdLMD2sqjiQLPWs2TlBncLF-IOPKb77TwUMMtd0auoNd6odA5IHeG5kmWPxgmra80OeX1mUHuoL3zWR8bS7osry3Ys-Ume0TqfWPRPcggyfKYMcs9A4hbO2RsmEPQ"/>
+</div>
+<h2 class="text-xl font-headline font-semibold text-on-surface mb-4">1.1 Module Dependencies</h2>
+<ul class="list-disc list-inside text-on-surface-variant text-sm space-y-2">
+<li>Authentication Gateway (JWT based)</li>
+<li>Real-time Websocket Layer</li>
+<li>PostgreSQL Persistent Store</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Right Panel: Chat Interface -->
+<section class="w-1/2 flex flex-col bg-surface-container-lowest relative">
+<!-- Chat Context Header -->
+<div class="h-12 border-b border-outline-variant bg-surface flex items-center px-6 shrink-0">
+<span class="text-sm font-medium text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                        AI Assistant Active
+                    </span>
+</div>
+<!-- Messages Area -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<!-- System/AI Message -->
+<div class="flex gap-4 max-w-[85%]">
+<div class="w-8 h-8 rounded bg-surface-container border border-outline-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
+</div>
+<div class="bg-surface-container border border-outline-variant rounded-lg rounded-tl-none p-4 text-sm text-on-surface leading-relaxed">
+<p>I'm ready to help you analyze <span class="text-primary font-medium">architecture_spec_v2.pdf</span>. What specific details are you looking for?</p>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-4 max-w-[85%] ml-auto justify-end">
+<div class="bg-surface-dim border border-primary/30 rounded-lg rounded-tr-none p-4 text-sm text-on-surface leading-relaxed relative">
+<div class="absolute inset-0 bg-primary/5 rounded-lg rounded-tr-none pointer-events-none"></div>
+<p>Can you summarize the authentication flow mentioned in section 1.1?</p>
+</div>
+<div class="w-8 h-8 rounded bg-surface-container-highest border border-outline-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">person</span>
+</div>
+</div>
+<!-- AI Processing state (subtle) -->
+<div class="flex gap-4 max-w-[85%]">
+<div class="w-8 h-8 rounded bg-surface-container border border-outline-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-sm animate-pulse">more_horiz</span>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-4 bg-surface border-t border-outline-variant shrink-0">
+<div class="relative flex items-end gap-2 bg-surface-container border border-outline-variant rounded-lg p-2 focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 focus-within:ring-offset-background transition-shadow">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors shrink-0">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<textarea class="w-full bg-transparent text-on-surface text-sm font-body border-none focus:ring-0 resize-none py-2 placeholder:text-on-surface-variant max-h-32" placeholder="Ask a question about this document..." rows="1"></textarea>
+<button class="p-2 bg-primary text-background rounded hover:opacity-90 transition-opacity shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<div class="text-center mt-2">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">AI can make mistakes. Verify critical information.</span>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

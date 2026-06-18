@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian PDF - Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#1a0000",
+                        "error": "#ef4444",
+                        "surface-dim": "#0c0c0f",
+                        "on-error-container": "#fca5a5",
+                        "primary-container": "#7c3aed",
+                        "surface-container-lowest": "#09090b",
+                        "surface-container-low": "#0f0f12",
+                        "secondary": "#71717a",
+                        "on-tertiary-fixed-variant": "#047857",
+                        "primary-fixed": "#ede9fe",
+                        "background": "#09090b",
+                        "surface-tint": "#a78bfa",
+                        "primary-fixed-dim": "#c4b5fd",
+                        "tertiary": "#34d399",
+                        "surface-container": "#121215",
+                        "on-primary-container": "#ede9fe",
+                        "on-tertiary": "#001a12",
+                        "on-surface-variant": "#a1a1aa",
+                        "on-primary-fixed": "#2e1065",
+                        "primary": "#a78bfa",
+                        "surface": "#0c0c0f",
+                        "on-primary": "#0a0012",
+                        "tertiary-fixed-dim": "#6ee7b7",
+                        "outline-variant": "#27272a",
+                        "tertiary-container": "#065f46",
+                        "tertiary-fixed": "#bbf7d0",
+                        "on-tertiary-container": "#bbf7d0",
+                        "on-primary-fixed-variant": "#5b21b6",
+                        "surface-bright": "#18181b",
+                        "on-tertiary-fixed": "#003318",
+                        "outline": "#52525b",
+                        "on-secondary": "#09090b",
+                        "surface-container-highest": "#1e1e22",
+                        "inverse-primary": "#5b21b6",
+                        "on-secondary-container": "#a1a1aa",
+                        "on-secondary-fixed": "#18181b",
+                        "secondary-fixed": "#a1a1aa",
+                        "on-secondary-fixed-variant": "#3f3f46",
+                        "inverse-surface": "#fafafa",
+                        "on-surface": "#fafafa",
+                        "secondary-container": "#27272a",
+                        "error-container": "#3b1111",
+                        "on-background": "#fafafa",
+                        "surface-variant": "#18181b",
+                        "surface-container-high": "#18181b",
+                        "secondary-fixed-dim": "#71717a",
+                        "inverse-on-surface": "#09090b"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Geist", "sans-serif"],
+                        "display": ["Geist", "sans-serif"],
+                        "body": ["Geist", "sans-serif"],
+                        "label": ["Geist", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for deep dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body h-screen w-screen overflow-hidden flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-6 py-3 h-16 bg-background dark:bg-background border-b border-outline-variant shrink-0 z-20">
+<!-- Brand -->
+<div class="flex items-center gap-2">
+<span aria-hidden="true" class="material-symbols-outlined text-primary text-2xl icon-fill">schema</span>
+<span class="text-xl font-headline font-bold tracking-tighter text-on-surface dark:text-on-surface">Obsidian PDF</span>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-8 h-full">
+<a class="h-full flex items-center font-body tracking-tight text-primary border-b-2 border-primary pb-1 font-medium" href="#">Documents</a>
+<a class="h-full flex items-center font-body tracking-tight text-on-surface-variant hover:text-primary transition-colors" href="#">Library</a>
+<a class="h-full flex items-center font-body tracking-tight text-on-surface-variant hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button class="hidden sm:flex items-center gap-2 bg-primary text-on-primary px-4 py-1.5 rounded-lg font-medium text-sm hover:opacity-90 transition-opacity shadow-[0_0_15px_rgba(167,139,250,0.1)]">
+<span aria-hidden="true" class="material-symbols-outlined text-sm">upload_file</span>
+                Upload PDF
+            </button>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="p-1.5 rounded-full hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center">
+<span aria-hidden="true" class="material-symbols-outlined">account_circle</span>
+</button>
+<button class="p-1.5 rounded-full hover:bg-surface-container hover:text-on-surface transition-colors flex items-center justify-center">
+<span aria-hidden="true" class="material-symbols-outlined">help</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="flex flex-col h-full w-64 bg-surface dark:bg-surface border-r border-outline-variant shrink-0 z-10 hidden md:flex">
+<!-- Header -->
+<div class="p-6 border-b border-outline-variant/50 flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border border-outline-variant overflow-hidden shrink-0">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A sleek, minimalist digital avatar with abstract geometric shapes in high-contrast violet and emerald green against a deep black background, conveying a high-tech developer aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ4JaMTHiEkTh-fXY2rPKF0U3Io2j7kaoK4T1iEs0_8j70yyXgjs4bR3PWTHnv1YzgIPpJvNYqUW7xdNNZn_4bW00z0k1H8PZmcKTwiqRIWwm0IpbajksU_nnQYok-s-mWiRyGdTPa7DZgfjua9UgPaVmsxMGH6LcXfsjJS72nrU5zlLduUWWZL_dGfxsJiwsTF57-umpGFDAHe0kC0krL8V062h3Dyl_UxHo-s-J1JyGZNLFan_MeQh79Gfanfgn8pZ284mulB-jd"/>
+</div>
+<div class="overflow-hidden">
+<h2 class="font-headline text-lg font-bold text-on-surface truncate tracking-tight">Project Alpha</h2>
+<p class="font-body text-label-sm text-on-surface-variant truncate">PDF Chat Session</p>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 bg-surface-container border border-outline-variant hover:border-primary/50 text-on-surface py-2 rounded-lg text-sm font-medium transition-all group shadow-sm shadow-black/20">
+<span aria-hidden="true" class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform duration-300">add</span>
+                    New Chat
+                </button>
+</div>
+<!-- Scrollable Nav -->
+<div class="flex-1 overflow-y-auto py-4 flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-highest text-primary font-bold border-r-4 border-primary transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">history</span>
+<span class="font-body text-label-sm">Chat History</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">description</span>
+<span class="font-body text-label-sm">Annotated</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">star</span>
+<span class="font-body text-label-sm">Starred</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">archive</span>
+<span class="font-body text-label-sm">Archive</span>
+</a>
+</div>
+<!-- Footer -->
+<div class="p-4 border-t border-outline-variant/50 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">contact_support</span>
+<span class="font-body text-label-sm">Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-error hover:text-on-error hover:bg-opacity-20 transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">logout</span>
+<span class="font-body text-label-sm">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Workspace Canvas -->
+<main class="flex-1 flex flex-col bg-surface-container-lowest p-4 md:p-6 overflow-hidden gap-4 relative">
+<!-- Workspace Controls Toolbar -->
+<div class="flex items-center justify-between shrink-0 h-10">
+<div class="flex items-center gap-3">
+<h1 class="text-sm font-medium text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">folder</span>
+                        Project Alpha
+                        <span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span>
+<span class="text-on-surface">System_Architecture_v2.pdf</span>
+</h1>
+</div>
+<!-- Layout Toggles -->
+<div class="flex items-center bg-surface border border-outline-variant rounded-lg p-0.5">
+<button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Focus PDF">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+</button>
+<button class="p-1.5 rounded-md bg-surface-container-highest text-primary shadow-sm transition-colors flex items-center gap-1 px-2" title="Split View">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">splitscreen</span>
+<span class="text-xs font-medium pr-1">Dual</span>
+</button>
+<button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" title="Focus Chat">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">chat</span>
+</button>
+</div>
+</div>
+<!-- Dual Pane Area -->
+<div class="flex-1 flex flex-col lg:flex-row gap-4 overflow-hidden">
+<!-- Pane 1: PDF Viewer -->
+<section class="flex-1 flex flex-col bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-xl shadow-black/40 relative">
+<!-- PDF Toolbar (Rich Annotations) -->
+<div class="h-12 border-b border-outline-variant bg-surface-container-low flex items-center justify-between px-3 shrink-0">
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Pan">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">pan_tool</span>
+</button>
+<button class="p-1.5 rounded bg-surface-container-highest text-primary transition-colors" title="Select Text">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">text_format</span>
+</button>
+<div class="w-px h-6 bg-outline-variant mx-1"></div>
+<button class="p-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Draw">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">draw</span>
+</button>
+<button class="p-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-tertiary transition-colors" title="Highlight">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px] icon-fill">highlight</span>
+</button>
+<button class="p-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors" title="Add Note">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">note_add</span>
+</button>
+</div>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="font-mono text-xs">Page 4 of 42</span>
+<div class="flex items-center gap-1">
+<button class="p-1 hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+<span class="w-12 text-center text-xs">125%</span>
+<button class="p-1 hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+</div>
+</div>
+<!-- PDF Content Area -->
+<div class="flex-1 overflow-auto bg-surface-dim p-8 flex justify-center">
+<!-- Mock PDF Page -->
+<div class="w-full max-w-3xl min-h-[800px] bg-surface-bright border border-outline-variant shadow-2xl shadow-black/80 p-12 relative group">
+<!-- Generative Content Placeholder inside PDF -->
+<div class="w-full h-48 bg-cover bg-center mb-8 border border-outline-variant rounded" data-alt="A sophisticated technical document layout featuring glowing abstract code snippets and data visualizations in neon emerald green and soft violet, set against a pristine dark gray canvas, highly detailed and professional, high-contrast dark mode aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuClD9zaih192W1VAhgJqt7m-aEdPEcDv36RvzLHAw5GsdOpIs13rc1w0i1heyG1MfBfQS5Qk8IIR718eIlPYur2u6P8U492B14qgZd77-Q8qAPvOVQhOmO9OgU1f9-Pv5uIhHGPKEE0zE15G5glke-R3DTk-c1WKU16CVGp7IqfCUVl2Nj8ROxKnBpdglhpyYdudlxDj2uF-qBrgzYe4WTPahfeO8Jg8teH6S_hu4QBU1PgENsUbqMzixDiOzgjLa08OjXixp7Tpv0L')"></div>
+<h2 class="text-3xl font-headline font-bold text-on-surface mb-6 tracking-tight">4. Architecture Constraints</h2>
+<p class="text-on-surface-variant text-base leading-relaxed mb-4">
+                                The system is designed to operate within strict resource boundaries while maintaining high availability. The primary constraints dictate that the core processing pipeline must execute within a low-latency envelope, leveraging edge nodes where possible.
+                            </p>
+<!-- Highlighted text mock -->
+<p class="text-on-surface-variant text-base leading-relaxed mb-4 relative">
+                                Security protocols mandate <span class="bg-tertiary/20 text-tertiary-fixed rounded px-1">end-to-end encryption for all payload data</span> in transit and at rest.
+                            </p>
+<!-- Comment Anchor Mock -->
+<div class="absolute right-[-16px] top-[420px] w-8 h-8 bg-surface-container border border-primary rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined text-[16px] text-primary">chat_bubble</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Pane 2: Chat Interface -->
+<section class="w-full lg:w-[400px] xl:w-[480px] flex flex-col bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-xl shadow-black/40 shrink-0">
+<!-- Chat Header -->
+<div class="h-12 border-b border-outline-variant bg-surface-container-low flex items-center justify-between px-4 shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]">temp_preferences_custom</span>
+<span class="text-sm font-medium text-on-surface">Analysis Engine</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors p-1 rounded-md hover:bg-surface-container">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">more_horiz</span>
+</button>
+</div>
+<!-- Chat Messages Area -->
+<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-6">
+<!-- AI Message -->
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[18px]">memory</span>
+</div>
+<div class="flex flex-col gap-1 max-w-[90%]">
+<span class="text-xs font-medium text-on-surface-variant">Obsidian AI</span>
+<div class="text-sm text-on-surface leading-relaxed">
+                                    I've loaded <span class="text-primary font-mono text-xs bg-surface-container-high px-1 rounded">System_Architecture_v2.pdf</span>. It appears to focus heavily on edge computing constraints. What would you like to analyze?
+                                </div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-3 self-end flex-row-reverse">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden shrink-0">
+<img alt="User" class="w-full h-full object-cover" data-alt="A small abstract minimalist avatar, deep black and green." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjeDRzz2HWYdoOrFR8BlX4vlDu5E9k2Sk8hSCTo1tV_GFWKmJmo3k4hA1acE8ET1xH1OljzOmkELl9Xc7TgJjQxP_UI2-U6vJEF5BD2NKA6oJNfsA1xVFJR17KuDfifdzCL3_f15JRToSiqEuDatP-8G2npyia3OXEJU9GEWUtMqCgL9vLhI0I6u2tOnd4rUQRl4q2TiElZPb5KnDNoi5TceWC5-e02KP34mT2CoNwQPLCCTl6RWLFHc5a3WK63cYRbWmziBjMrnPx"/>
+</div>
+<div class="flex flex-col gap-1 items-end max-w-[85%]">
+<span class="text-xs font-medium text-on-surface-variant">You</span>
+<div class="bg-surface-container-high text-sm text-on-surface leading-relaxed p-3 rounded-2xl rounded-tr-sm border border-outline-variant shadow-sm shadow-black/20">
+                                    Summarize the security protocols mentioned in section 4.
+                                </div>
+</div>
+</div>
+<!-- AI Message (Complex) -->
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[18px]">memory</span>
+</div>
+<div class="flex flex-col gap-2 max-w-[90%]">
+<span class="text-xs font-medium text-on-surface-variant flex items-center gap-2">
+                                    Obsidian AI 
+                                    <span class="text-[10px] bg-tertiary/10 text-tertiary px-1.5 py-0.5 rounded border border-tertiary/20">Referencing Pg 4</span>
+</span>
+<div class="text-sm text-on-surface leading-relaxed">
+                                    Based on Section 4, the primary security mandate is <strong>end-to-end encryption</strong>.
+                                </div>
+<!-- Quoted Block -->
+<div class="bg-surface-container-lowest border-l-2 border-primary p-3 text-xs text-on-surface-variant font-mono mt-1 rounded-r-md">
+                                    "Security protocols mandate end-to-end encryption for all payload data in transit and at rest."
+                                </div>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-3 border-t border-outline-variant bg-surface-container-low shrink-0">
+<div class="bg-surface-container-lowest border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/50 transition-all rounded-xl p-2 flex flex-col gap-2 shadow-inner">
+<textarea class="w-full bg-transparent border-none text-sm text-on-surface placeholder:text-on-surface-variant resize-none focus:ring-0 p-1 custom-scrollbar max-h-32" placeholder="Ask about this document..." rows="1" style="min-height: 24px;"></textarea>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button class="p-1.5 hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Attach context">
+<span class="material-symbols-outlined text-[18px]">attach_file</span>
+</button>
+<button class="p-1.5 hover:text-primary hover:bg-surface-container rounded-md transition-colors" title="Insert snippet">
+<span class="material-symbols-outlined text-[18px]">code</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary w-8 h-8 rounded-lg flex items-center justify-center shadow-[0_0_10px_rgba(167,139,250,0.2)] hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_upward</span>
+</button>
+</div>
+</div>
+<div class="text-center mt-2">
+<span class="text-[10px] text-on-surface-variant font-mono">Obsidian AI may produce inaccurate information.</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

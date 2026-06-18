@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian PDF - Immersive Reader</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#1a0000",
+                        "error": "#ef4444",
+                        "surface-dim": "#0c0c0f",
+                        "on-error-container": "#fca5a5",
+                        "primary-container": "#7c3aed",
+                        "surface-container-lowest": "#09090b",
+                        "surface-container-low": "#0f0f12",
+                        "secondary": "#71717a",
+                        "on-tertiary-fixed-variant": "#047857",
+                        "primary-fixed": "#ede9fe",
+                        "background": "#09090b",
+                        "surface-tint": "#a78bfa",
+                        "primary-fixed-dim": "#c4b5fd",
+                        "tertiary": "#34d399",
+                        "surface-container": "#121215",
+                        "on-primary-container": "#ede9fe",
+                        "on-tertiary": "#001a12",
+                        "on-surface-variant": "#a1a1aa",
+                        "on-primary-fixed": "#2e1065",
+                        "primary": "#a78bfa",
+                        "surface": "#0c0c0f",
+                        "on-primary": "#0a0012",
+                        "tertiary-fixed-dim": "#6ee7b7",
+                        "outline-variant": "#27272a",
+                        "tertiary-container": "#065f46",
+                        "tertiary-fixed": "#bbf7d0",
+                        "on-tertiary-container": "#bbf7d0",
+                        "on-primary-fixed-variant": "#5b21b6",
+                        "surface-bright": "#18181b",
+                        "on-tertiary-fixed": "#003318",
+                        "outline": "#52525b",
+                        "on-secondary": "#09090b",
+                        "surface-container-highest": "#1e1e22",
+                        "inverse-primary": "#5b21b6",
+                        "on-secondary-container": "#a1a1aa",
+                        "on-secondary-fixed": "#18181b",
+                        "secondary-fixed": "#a1a1aa",
+                        "on-secondary-fixed-variant": "#3f3f46",
+                        "inverse-surface": "#fafafa",
+                        "on-surface": "#fafafa",
+                        "secondary-container": "#27272a",
+                        "error-container": "#3b1111",
+                        "on-background": "#fafafa",
+                        "surface-variant": "#18181b",
+                        "surface-container-high": "#18181b",
+                        "secondary-fixed-dim": "#71717a",
+                        "inverse-on-surface": "#09090b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Geist", "sans-serif"],
+                        "display": ["Geist", "sans-serif"],
+                        "body": ["Geist", "sans-serif"],
+                        "label": ["Geist", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Custom Scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b; 
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background-color: rgba(12, 12, 15, 0.65); /* surface-dim */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body h-screen flex flex-col overflow-hidden selection:bg-primary/30 selection:text-primary-fixed">
+<!-- TopNavBar JSON Implementation -->
+<header class="bg-background border-b border-outline-variant w-full sticky top-0 z-50 flex justify-between items-center px-6 py-3 h-16 shrink-0">
+<div class="flex items-center gap-8">
+<!-- Brand -->
+<div class="text-xl font-headline font-bold tracking-tighter text-on-surface">
+                Obsidian PDF
+            </div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center gap-6 mt-1 text-sm font-medium tracking-tight">
+<a class="text-primary border-b-2 border-primary pb-1" href="#">Documents</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Library</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search Bar Position (on_right logic dictates search could be here, but we'll prioritize the actions) -->
+<div class="relative hidden lg:block group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container border border-outline-variant rounded-full py-1.5 pl-9 pr-4 text-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-48 transition-all group-focus-within:w-64 placeholder-on-surface-variant/50" placeholder="Search..." type="text"/>
+</div>
+<!-- Trailing Primary Action -->
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-md text-sm font-medium hover:bg-primary-fixed transition-colors shadow-sm active:scale-95 duration-150">
+                Upload PDF
+            </button>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center gap-2 text-on-surface-variant border-l border-outline-variant pl-4 ml-2">
+<button class="p-1 hover:text-primary transition-colors rounded-md hover:bg-surface-container active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span>
+</button>
+<button class="p-1 hover:text-primary transition-colors rounded-md hover:bg-surface-container active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Workspace Area -->
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar JSON Implementation -->
+<aside class="bg-surface border-r border-outline-variant w-64 h-full flex-shrink-0 flex flex-col z-10 hidden md:flex">
+<!-- Header -->
+<div class="p-5 border-b border-outline-variant">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden flex-shrink-0">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A detailed, hyper-realistic macro shot of an abstract, iridescent geometric cube floating in a void of pure dark zinc gray. The cube emits a very faint, soft violet aura. The lighting is dramatic and directional, highlighting the sharp edges and smooth metallic textures. The overall aesthetic is developer-grade, precise, dark, and highly technical." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_fytTKgmCsiSNtB2L_L5NmTMRkPiD8GEunv8_wBYxrBFoiFtsQj6HRFQMG93aDx3koURXrMlMJuDH68qR6_dGPNHyIPsaDe0NErHaEHSTkbs-9ij0m5L_O0fcvr8Nr211aAKlmTCxuoxqu44bt5hfCS1qWjLVk8aEWUXdM76AIbeTIC-xrgtu4G-79KEB_9CGPCP9_CwJcAEKphlkvchA4e17TprvR9tNnmNYyogHMMm268q6RawB49nf3umnDRcG1lOcQrptGfs3"/>
+</div>
+<div>
+<h2 class="font-headline text-lg font-bold text-on-surface leading-tight tracking-tight">Project Alpha</h2>
+<p class="text-xs text-on-surface-variant mt-0.5">PDF Chat Session</p>
+</div>
+</div>
+<button class="w-full flex items-center justify-center gap-2 bg-surface-container hover:bg-surface-container-highest border border-outline-variant text-on-surface px-4 py-2 rounded-md text-sm font-medium transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    New Chat
+                </button>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex-1 overflow-y-auto py-3">
+<nav class="flex flex-col gap-1 px-2 text-sm font-body">
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="history">history</span>
+                        Chat History
+                    </a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-md bg-surface-container-highest text-primary font-bold border-r-4 border-primary active:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="description">description</span>
+                        Annotated
+                    </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="star">star</span>
+                        Starred
+                    </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="archive">archive</span>
+                        Archive
+                    </a>
+</nav>
+</div>
+<!-- Footer Tabs -->
+<div class="p-3 border-t border-outline-variant">
+<nav class="flex flex-col gap-1 text-sm font-body">
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-on-surface-variant hover:bg-surface-container transition-colors active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="contact_support">contact_support</span>
+                        Support
+                    </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md text-on-surface-variant hover:bg-surface-container transition-colors active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="logout">logout</span>
+                        Sign Out
+                    </a>
+</nav>
+</div>
+</aside>
+<!-- Main PDF Viewer Container (Immersive Reader) -->
+<main class="flex-1 bg-surface-container-lowest h-full relative overflow-hidden flex flex-col">
+<!-- Minimalist Top Controls for Viewer -->
+<div class="absolute top-4 left-1/2 -translate-x-1/2 z-20 bg-surface-dim/80 backdrop-blur-md border border-outline-variant rounded-full px-4 py-1.5 flex items-center gap-4 shadow-lg text-sm text-on-surface-variant">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+<span class="font-medium tracking-wide text-on-surface">125%</span>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">add</span></button>
+<div class="w-px h-4 bg-outline-variant mx-1"></div>
+<span class="font-medium">Page 4 of 42</span>
+</div>
+<!-- PDF Canvas Area -->
+<div class="flex-1 overflow-auto p-8 flex justify-center pb-32">
+<!-- Simulated PDF Page -->
+<div class="w-full max-w-3xl bg-surface-bright border border-outline-variant shadow-2xl rounded-sm p-12 lg:p-16 text-on-surface font-body leading-relaxed flex flex-col gap-6 relative">
+<h1 class="font-headline text-3xl font-bold tracking-tight mb-4 border-b border-outline-variant pb-4">Architectural Design Specifications</h1>
+<p class="text-on-surface-variant">
+                        This document outlines the core structural components and data flow models required for the new distributed ledger module. The primary objective is to maintain sub-10ms latency while ensuring cryptographic integrity across all geographic nodes.
+                    </p>
+<h3 class="font-headline text-xl font-semibold mt-4">1.2. Consensus Mechanism</h3>
+<p class="text-on-surface-variant">
+                        Instead of traditional Proof of Work, the system leverages a hybridized Byzantine Fault Tolerance (BFT) algorithm. This approach allows for rapid block finality. 
+                        <span class="bg-primary/20 text-primary-fixed rounded-sm px-1 py-0.5 border-b border-primary/50 font-medium cursor-pointer hover:bg-primary/30 transition-colors" title="AI Note Attached">
+                            The critical threshold for consensus is defined dynamically based on active network topology, rather than a fixed percentage.
+                        </span> 
+                        This dynamic scaling is crucial for resilience against partition events.
+                    </p>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-md p-4 my-4 font-mono text-sm text-secondary-fixed">
+                        // Node verification sequence<br/>
+                        function verifyPeer(peerId, signature) {<br/>
+                          const key = keyRegistry.get(peerId);<br/>
+                          if (!key) return false;<br/>
+                          <span class="text-tertiary">return crypto.verify(signature, key);</span><br/>
+                        }
+                    </div>
+<p class="text-on-surface-variant">
+                        Furthermore, empirical testing demonstrated a 40% reduction in bandwidth overhead when implementing the delta-compression protocol over the wire. However, edge cases regarding state synchronization during massive cluster restarts remain an active area of investigation.
+                    </p>
+<p class="text-on-surface-variant mt-auto pt-12 text-center text-xs opacity-50">Confidential - Project Alpha - Page 4</p>
+</div>
+</div>
+</main>
+<!-- Glassmorphism Chat Overlay (Collapsible) -->
+<aside class="absolute right-4 top-4 bottom-4 w-[400px] glass-panel border border-outline-variant/50 rounded-xl flex flex-col shadow-2xl z-40 transition-transform duration-300 ease-in-out translate-x-0" id="chat-overlay">
+<!-- Chat Header -->
+<div class="px-5 py-4 border-b border-outline-variant/50 flex justify-between items-center bg-surface-dim/40 rounded-t-xl">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]" data-weight="fill">smart_toy</span>
+<h3 class="font-headline font-semibold text-on-surface tracking-tight">Document Assistant</h3>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container p-1.5 rounded-md transition-colors active:scale-95" onclick="toggleChat()">
+<span class="material-symbols-outlined text-[20px]" id="collapse-icon">right_panel_close</span>
+</button>
+</div>
+<!-- Chat Messages Area -->
+<div class="flex-1 overflow-y-auto p-5 flex flex-col gap-6">
+<!-- System Message -->
+<div class="text-center">
+<span class="text-xs font-medium text-on-surface-variant/70 bg-surface-container-lowest/50 px-3 py-1 rounded-full border border-outline-variant/30">Session active for document</span>
+</div>
+<!-- User Message -->
+<div class="flex flex-col items-end gap-1 w-full">
+<div class="bg-surface-container-highest border border-outline-variant text-on-surface px-4 py-2.5 rounded-2xl rounded-tr-sm text-sm max-w-[85%] leading-relaxed shadow-sm">
+                        Can you explain the highlighted section about the dynamic threshold?
+                    </div>
+</div>
+<!-- AI Message -->
+<div class="flex flex-col items-start gap-1 w-full">
+<div class="flex items-center gap-2 mb-1 pl-1">
+<span class="material-symbols-outlined text-primary text-[16px]" data-weight="fill">smart_toy</span>
+<span class="text-xs font-medium text-primary">Obsidian AI</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant px-4 py-3 rounded-2xl rounded-tl-sm text-sm max-w-[90%] leading-relaxed shadow-sm">
+<p class="mb-2">Certainly. The highlighted text references how the system determines if agreement has been reached.</p>
+<p class="mb-2">In a static system, it might require exactly 67% of nodes to agree. In this <strong class="text-on-surface">hybridized BFT</strong> approach, the required percentage changes based on network health.</p>
+<ul class="list-disc pl-4 space-y-1 mt-2 text-on-surface">
+<li>If latency is low, the threshold might increase to ensure higher security.</li>
+<li>If a network partition occurs, it lowers to maintain liveness.</li>
+</ul>
+</div>
+</div>
+<!-- Follow up chips -->
+<div class="flex flex-wrap gap-2 mt-2">
+<button class="bg-surface-container-low border border-outline-variant hover:border-primary/50 text-xs text-on-surface-variant px-3 py-1.5 rounded-full transition-colors">Explain BFT</button>
+<button class="bg-surface-container-low border border-outline-variant hover:border-primary/50 text-xs text-on-surface-variant px-3 py-1.5 rounded-full transition-colors">Show formula</button>
+</div>
+</div>
+<!-- Chat Input -->
+<div class="p-4 bg-surface-dim/60 border-t border-outline-variant/50 rounded-b-xl">
+<div class="relative flex items-end bg-surface-container-lowest border border-outline-variant rounded-xl p-1 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+</button>
+<textarea class="w-full bg-transparent border-none text-sm text-on-surface resize-none focus:ring-0 px-2 py-2.5 max-h-32 min-h-[44px]" placeholder="Ask about this document..." rows="1"></textarea>
+<button class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors flex-shrink-0 m-0.5">
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2 px-1">
+<span class="text-[10px] text-on-surface-variant/60 uppercase tracking-wider font-semibold">Context: Page 4</span>
+<span class="text-[10px] text-on-surface-variant/60">Press Enter to send</span>
+</div>
+</div>
+</aside>
+<!-- Floating Action Button to reopen chat (Hidden by default, shown when chat collapsed) -->
+<button class="absolute right-6 bottom-6 w-12 h-12 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:bg-primary-fixed transition-transform duration-300 scale-0 opacity-0 z-30" id="open-chat-fab" onclick="toggleChat()">
+<span class="material-symbols-outlined">chat</span>
+</button>
+</div>
+<script>
+        let isChatOpen = true;
+        const chatOverlay = document.getElementById('chat-overlay');
+        const openChatFab = document.getElementById('open-chat-fab');
+        const collapseIcon = document.getElementById('collapse-icon');
+
+        function toggleChat() {
+            isChatOpen = !isChatOpen;
+            
+            if (isChatOpen) {
+                // Open chat
+                chatOverlay.classList.remove('translate-x-[110%]', 'opacity-0');
+                chatOverlay.classList.add('translate-x-0', 'opacity-100');
+                
+                // Hide FAB
+                openChatFab.classList.remove('scale-100', 'opacity-100');
+                openChatFab.classList.add('scale-0', 'opacity-0');
+            } else {
+                // Close chat (slide off screen slightly)
+                chatOverlay.classList.remove('translate-x-0', 'opacity-100');
+                chatOverlay.classList.add('translate-x-[110%]', 'opacity-0');
+                
+                // Show FAB
+                setTimeout(() => {
+                    openChatFab.classList.remove('scale-0', 'opacity-0');
+                    openChatFab.classList.add('scale-100', 'opacity-100');
+                }, 150);
+            }
+        }
+    </script>
+</body></html>

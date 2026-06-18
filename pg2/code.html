@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Obsidian PDF - Command Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#1a0000",
+                        "error": "#ef4444",
+                        "surface-dim": "#0c0c0f",
+                        "on-error-container": "#fca5a5",
+                        "primary-container": "#7c3aed",
+                        "surface-container-lowest": "#09090b",
+                        "surface-container-low": "#0f0f12",
+                        "secondary": "#71717a",
+                        "on-tertiary-fixed-variant": "#047857",
+                        "primary-fixed": "#ede9fe",
+                        "background": "#09090b",
+                        "surface-tint": "#a78bfa",
+                        "primary-fixed-dim": "#c4b5fd",
+                        "tertiary": "#34d399",
+                        "surface-container": "#121215",
+                        "on-primary-container": "#ede9fe",
+                        "on-tertiary": "#001a12",
+                        "on-surface-variant": "#a1a1aa",
+                        "on-primary-fixed": "#2e1065",
+                        "primary": "#a78bfa",
+                        "surface": "#0c0c0f",
+                        "on-primary": "#0a0012",
+                        "tertiary-fixed-dim": "#6ee7b7",
+                        "outline-variant": "#27272a",
+                        "tertiary-container": "#065f46",
+                        "tertiary-fixed": "#bbf7d0",
+                        "on-tertiary-container": "#bbf7d0",
+                        "on-primary-fixed-variant": "#5b21b6",
+                        "surface-bright": "#18181b",
+                        "on-tertiary-fixed": "#003318",
+                        "outline": "#52525b",
+                        "on-secondary": "#09090b",
+                        "surface-container-highest": "#1e1e22",
+                        "inverse-primary": "#5b21b6",
+                        "on-secondary-container": "#a1a1aa",
+                        "on-secondary-fixed": "#18181b",
+                        "secondary-fixed": "#a1a1aa",
+                        "on-secondary-fixed-variant": "#3f3f46",
+                        "inverse-surface": "#fafafa",
+                        "on-surface": "#fafafa",
+                        "secondary-container": "#27272a",
+                        "error-container": "#3b1111",
+                        "on-background": "#fafafa",
+                        "surface-variant": "#18181b",
+                        "surface-container-high": "#18181b",
+                        "secondary-fixed-dim": "#71717a",
+                        "inverse-on-surface": "#09090b"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Geist", "sans-serif"],
+                        "display": ["Geist", "sans-serif"],
+                        "body": ["Geist", "sans-serif"],
+                        "label": ["Geist", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen flex flex-col overflow-hidden font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-background border-b border-outline-variant flex justify-between items-center w-full px-6 py-3 h-16 shrink-0 z-20">
+<!-- Brand -->
+<div class="text-xl font-headline font-bold tracking-tighter text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">hexagon</span>
+            Obsidian PDF
+        </div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex gap-8 items-center h-full">
+<a class="text-primary border-b-2 border-primary pb-1 font-medium tracking-tight h-full flex items-center" href="#">Documents</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors tracking-tight h-full flex items-center" href="#">Library</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors tracking-tight h-full flex items-center" href="#">Settings</a>
+</nav>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded text-sm font-medium hover:bg-primary-fixed transition-colors active:scale-95 duration-150">Upload PDF</button>
+<div class="flex items-center gap-2 border-l border-outline-variant pl-4 ml-2">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center active:scale-95 duration-150">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center active:scale-95 duration-150">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main 3-Column Layout -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Column 1: SideNavBar -->
+<aside class="bg-surface border-r border-outline-variant flex flex-col h-full w-64 shrink-0 font-body text-label-sm z-10">
+<!-- Header -->
+<div class="p-4 border-b border-outline-variant">
+<div class="flex items-center gap-3 mb-4">
+<img class="w-10 h-10 rounded object-cover border border-outline-variant bg-surface-container-lowest" data-alt="A minimalist profile avatar depicting a subtle geometric wireframe of a cube in dark violet against a near-black zinc background, conveying a high-tech developer aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO_ahvqS-PJPhaGitgOh0FMpr1cdsYAtCpOVKCyZujKq5HtN-kKVvJraRqXgdOy1-D7FlqKsvjAPY-xN7xC-MtoRmmOVbyu1ono8YUoQmOPWXmPjFMm07kkce2eOu7QL5JqENpSDbLMAF-2Qq8aEqOI-ICtTGxPba2DuSyaVfPEmnbbs7bqr3bTtqdaz_IDcmQ-MYN-9CjY4yTcRPmhn5zhYb0TEk9Gzs8MFUj56jcA2kRHYi_BLZqeShhPxC2ap1JuRodx7IU8KVf"/>
+<div class="overflow-hidden">
+<div class="font-headline text-sm font-bold text-on-surface truncate tracking-tight">Project Alpha</div>
+<div class="text-on-surface-variant text-xs truncate">PDF Chat Session</div>
+</div>
+</div>
+<button class="w-full bg-surface-container-low border border-outline-variant text-on-surface py-1.5 rounded hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2 active:opacity-80">
+<span class="material-symbols-outlined text-sm">add</span> New Chat
+                </button>
+</div>
+<!-- Tabs -->
+<nav class="flex-1 overflow-y-auto py-3 space-y-1">
+<a class="bg-surface-container-highest text-primary font-bold border-r-4 border-primary flex items-center gap-3 px-4 py-2 mx-2 rounded-l" href="#">
+<span class="material-symbols-outlined text-lg">history</span> Chat History
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface flex items-center gap-3 px-4 py-2 mx-2 rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">description</span> Annotated
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface flex items-center gap-3 px-4 py-2 mx-2 rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">star</span> Starred
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface flex items-center gap-3 px-4 py-2 mx-2 rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">archive</span> Archive
+                </a>
+</nav>
+<!-- Footer -->
+<div class="p-2 border-t border-outline-variant mt-auto">
+<a class="text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface flex items-center gap-3 px-4 py-2 rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">contact_support</span> Support
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface flex items-center gap-3 px-4 py-2 rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">logout</span> Sign Out
+                </a>
+</div>
+</aside>
+<!-- Column 2: Center (PDF Viewer) -->
+<main class="flex-1 flex flex-col bg-surface-container-lowest relative border-r border-outline-variant overflow-hidden">
+<!-- Viewer Toolbar -->
+<div class="h-10 bg-surface border-b border-outline-variant flex items-center justify-between px-4 text-on-surface-variant text-xs font-mono shrink-0">
+<div class="flex items-center gap-4">
+<button class="hover:text-primary transition-colors flex items-center"><span class="material-symbols-outlined text-sm">zoom_out</span></button>
+<span>100%</span>
+<button class="hover:text-primary transition-colors flex items-center"><span class="material-symbols-outlined text-sm">zoom_in</span></button>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">description</span>
+<span>quantum_entanglement_v3.pdf</span>
+<span class="mx-2 text-outline">|</span>
+<span>Page 4 of 42</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="hover:text-primary transition-colors flex items-center"><span class="material-symbols-outlined text-sm">search</span></button>
+<button class="hover:text-primary transition-colors flex items-center"><span class="material-symbols-outlined text-sm">tune</span></button>
+</div>
+</div>
+<!-- PDF Canvas Wrapper -->
+<div class="flex-1 overflow-auto bg-surface-container-lowest p-8 flex justify-center relative">
+<!-- Abstract Background effect to represent 'depth' in darkness -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#27272a 1px, transparent 1px); background-size: 20px 20px;"></div>
+<!-- Mock PDF Document -->
+<div class="w-[750px] bg-surface border border-outline-variant shadow-sm p-12 text-on-surface relative z-10 my-auto h-max min-h-[900px]">
+<div class="flex justify-between items-start mb-8 border-b border-outline-variant pb-4">
+<div>
+<h1 class="text-2xl font-headline font-bold tracking-tight mb-2">3. Entanglement Swapping Protocols</h1>
+<p class="text-xs text-on-surface-variant font-mono">Sec. III — Theoretical Frameworks</p>
+</div>
+</div>
+<p class="text-sm leading-relaxed text-on-surface-variant mb-6 text-justify">
+                        The core mechanism of entanglement swapping relies on the projection of two independent photons onto a Bell state. If Alice and Bob share an entangled pair $(A, B)$, and Bob and Charlie share another pair $(C, D)$, a joint Bell-state measurement (BSM) by Bob on particles $B$ and $C$ will instantly project particles $A$ and $D$ into an entangled state, despite them never having interacted.
+                    </p>
+<!-- Highlighted Section via AI -->
+<div class="relative mb-6">
+<div class="absolute -inset-2 bg-primary/10 border border-primary/30 rounded pointer-events-none"></div>
+<p class="text-sm leading-relaxed text-on-surface relative z-10">
+                            This mechanism forms the backbone of quantum repeaters, essential for long-distance quantum key distribution (QKD). The fidelity of the final state $F_{AD}$ is fundamentally bounded by the initial purities of the pairs and the efficiency of the BSM setup. We formalize this bound as:
+                        </p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 font-mono text-xs text-center mb-6 text-primary">
+                        $F_{AD} \le F_{AB} \cdot F_{CD} + \frac{1}{3}(1 - F_{AB})(1 - F_{CD})$
+                    </div>
+<div class="space-y-3">
+<div class="h-3 w-full bg-surface-container rounded-sm"></div>
+<div class="h-3 w-11/12 bg-surface-container rounded-sm"></div>
+<div class="h-3 w-full bg-surface-container rounded-sm"></div>
+<div class="h-3 w-4/5 bg-surface-container rounded-sm"></div>
+<div class="h-3 w-full bg-surface-container rounded-sm"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Column 3: Contextual AI Chat & Insights -->
+<aside class="w-80 lg:w-96 bg-surface-container flex flex-col h-full shrink-0 border-l border-outline-variant">
+<!-- Header -->
+<div class="h-10 border-b border-outline-variant px-4 flex justify-between items-center bg-surface shrink-0">
+<div class="font-headline text-sm font-bold tracking-tight text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm">memory</span> Context Engine
+                </div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="text-tertiary text-[10px] uppercase tracking-wider font-bold">Active</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col overflow-hidden">
+<!-- Top Bento: Key Insights -->
+<div class="p-4 border-b border-outline-variant shrink-0 bg-surface/50">
+<div class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold mb-3 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">key</span> Extracted Entities
+                    </div>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface border border-outline-variant text-on-surface px-2 py-1 rounded text-xs flex items-center gap-1 hover:border-primary cursor-default transition-colors">
+<span class="w-1 h-1 rounded-full bg-primary"></span> Entanglement Swapping
+                        </span>
+<span class="bg-surface border border-outline-variant text-on-surface px-2 py-1 rounded text-xs flex items-center gap-1 hover:border-primary cursor-default transition-colors">
+<span class="w-1 h-1 rounded-full bg-primary"></span> Quantum Repeaters
+                        </span>
+<span class="bg-surface border border-outline-variant text-on-surface px-2 py-1 rounded text-xs flex items-center gap-1 hover:border-primary cursor-default transition-colors">
+<span class="w-1 h-1 rounded-full bg-primary"></span> Bell-State Measurement
+                        </span>
+</div>
+</div>
+<!-- Chat Area -->
+<div class="flex-1 overflow-y-auto p-4 space-y-6">
+<!-- AI Message -->
+<div class="flex gap-3">
+<div class="w-6 h-6 rounded shrink-0 bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mt-1">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+</div>
+<div class="space-y-2">
+<div class="text-xs font-bold text-on-surface">Obsidian AI</div>
+<div class="bg-surface border border-outline-variant rounded p-3 text-sm text-on-surface-variant leading-relaxed">
+                                I've analyzed the section on <span class="text-primary font-medium">Entanglement Swapping</span>. The formula presented establishes an upper bound for fidelity. 
+                                <br/><br/>
+                                Would you like me to cross-reference this fidelity bound with the practical limitations discussed in Section V?
+                            </div>
+<div class="flex gap-2 mt-2">
+<button class="text-[10px] bg-surface-container border border-outline-variant px-2 py-1 rounded hover:text-primary transition-colors">Yes, cross-reference</button>
+<button class="text-[10px] bg-surface-container border border-outline-variant px-2 py-1 rounded hover:text-primary transition-colors">Explain BSM</button>
+</div>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-3 flex-row-reverse">
+<div class="w-6 h-6 rounded shrink-0 bg-surface border border-outline-variant flex items-center justify-center text-on-surface mt-1">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+<div class="space-y-2 text-right">
+<div class="text-xs font-bold text-on-surface">You</div>
+<div class="bg-surface-container-highest border border-outline-variant rounded p-3 text-sm text-on-surface inline-block">
+                                Explain the impact of initial purities ($F_{AB}$) dropping below 0.8.
+                            </div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-4 bg-surface border-t border-outline-variant shrink-0">
+<div class="relative group">
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 pl-3 pr-10 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-on-surface resize-none transition-all placeholder:text-on-surface-variant/50" placeholder="Ask Obsidian about this document..." rows="2"></textarea>
+<button class="absolute right-2 bottom-2 text-on-surface-variant hover:text-primary bg-surface p-1 rounded transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2 px-1">
+<div class="flex gap-2 text-on-surface-variant">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[16px]">attach_file</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[16px]">format_quote</span></button>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono">Cmd + Enter to send</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</body></html>
