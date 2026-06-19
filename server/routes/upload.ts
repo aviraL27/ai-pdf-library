@@ -1,5 +1,4 @@
 import { Router, Request, Response } from "express";
-import { createRequire } from "module";
 import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import { upload } from "../middleware/multer.js";
@@ -7,15 +6,7 @@ import { getDb, dbInsertPdf } from "../db/sqlite.js";
 import { chunkText } from "../services/chunker.js";
 import { embedChunks } from "../services/embedder.js";
 import { storeChunks } from "../services/vectorStore.js";
-
-// pdf-parse is CJS-only — use createRequire to import it in ESM context
-const require = createRequire(import.meta.url);
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const pdfParse = require("pdf-parse") as (buffer: Buffer, options?: any) => Promise<{
-  text: string;
-  numpages: number;
-  info: Record<string, unknown>;
-}>;
+import { PDFParse } from "pdf-parse";
 
 export const uploadRouter = Router();
 
@@ -38,29 +29,14 @@ uploadRouter.post(
       // ── 1. Parse PDF ────────────────────────────────────────────────────────
       const dataBuffer = fs.readFileSync(file.path);
 
-      // Collect per-page text via pagerender callback
-      const pageTexts: { pageNumber: number; text: string }[] = [];
-      let pageCounter = 0;
+      const parser = new PDFParse({ data: dataBuffer });
+      const result = await parser.getText();
+      await parser.destroy(); // Free resources immediately
 
-      await pdfParse(dataBuffer, {
-        pagerender: async (pageData: any) => {
-          pageCounter++;
-          const currentPage = pageCounter;
-          const content = await pageData.getTextContent();
-          const text = content.items
-            .map((item: any) => item.str ?? "")
-            .join(" ");
-          pageTexts.push({ pageNumber: currentPage, text });
-          return text;
-        },
-      });
-
-      // Fallback if pagerender didn't fire (some PDFs)
-      if (pageTexts.length === 0) {
-        const parsed = await pdfParse(dataBuffer);
-        pageTexts.push({ pageNumber: 1, text: parsed.text });
-        console.warn("[upload] pagerender not fired — using flat text fallback");
-      }
+      const pageTexts = result.pages.map((p) => ({
+        pageNumber: p.num,
+        text: p.text,
+      }));
 
       const totalPages = pageTexts.length;
       console.log(`[upload] Extracted ${totalPages} pages`);
